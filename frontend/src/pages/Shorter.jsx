@@ -6,7 +6,7 @@ const Shorter = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   const handleShorten = async (e) => {
     e.preventDefault();
 
@@ -27,7 +27,10 @@ const Shorter = () => {
   const handleGetAll=async()=>{
       getall();
   }
-
+  const copy=async(Short)=>{
+    await navigator.clipboard.writeText(Short);
+  }
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 px-4">
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
@@ -86,8 +89,14 @@ const Shorter = () => {
                 className="p-3 bg-gray-100 rounded-lg text-sm"
               >
                 <p><strong>Original:</strong> {item.longurl}</p>
-                <p><strong>Short:</strong> {item.shorturl}</p>
+                <p><strong>Short:</strong> http://localhost:5000/{item.shorturl}</p>
                 <p><strong>clicks:</strong> {item.clicks}</p>
+                 <button
+               onClick={() => copy(`http://localhost:5000/${item.shorturl}`)}
+              className="bg-indigo-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-indigo-600 transition"
+            >
+              Copy
+            </button>
               </div>
             ))}
           </div>
