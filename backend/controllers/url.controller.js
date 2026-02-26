@@ -2,7 +2,7 @@ import Url from '../models/url.model.js';
 import { nanoid } from 'nanoid';
 import dotenv from 'dotenv';
 import { redis } from '../utils/rediss.js';
-
+import { encodeBase62 } from '../utils/base63.2.js';
 dotenv.config();
 
 const shortenUrl=async(req,res)=>{
@@ -17,7 +17,9 @@ const shortenUrl=async(req,res)=>{
             return res.json({shortUrl:`${process.env.BASE_URL}/${cachedCode}`});
         }
         // making short url
-        const shortcode=nanoid(8);
+    
+        const globalId = await redis.incr("global_url_id");
+        const shortcode = encodeBase62(globalId);
         
         await Url.create({
             longurl:longUrl,
