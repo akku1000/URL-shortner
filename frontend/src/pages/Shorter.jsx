@@ -2,8 +2,8 @@ import React, { use, useState } from 'react'
 import useAuth from '../userstore/useAuth';
 
 const Shorter = () => {
-  const { shorten, newurl } = useAuth();
-     const [url, setUrl] = useState("");
+  const { shorten,urls,getall } = useAuth();
+  const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,18 +14,19 @@ const Shorter = () => {
 
     setLoading(true);
 
-    const res=shorten(url)
-    console.log(res);
-    setTimeout(() => {
+    const res=await shorten(url)
+
       setShortUrl(res);
       setLoading(false);
-    }, 1200);
   };
 
   const copyToClipboard = () => {
     console.log(shortUrl);
     navigator.clipboard.writeText(shortUrl);
   };
+  const handleGetAll=async()=>{
+      getall();
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 px-4">
@@ -67,6 +68,28 @@ const Shorter = () => {
             >
               Copy
             </button>
+          </div>
+        )}
+
+         <button
+          onClick={handleGetAll}
+          className="mt-6 w-full bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition duration-300"
+        >
+          Get All URLs
+        </button>
+
+        {urls&&(
+          <div className="mt-6 max-h-60 overflow-y-auto space-y-2">
+            {urls.map((item, index) => (
+              <div
+                key={index}
+                className="p-3 bg-gray-100 rounded-lg text-sm"
+              >
+                <p><strong>Original:</strong> {item.longurl}</p>
+                <p><strong>Short:</strong> {item.shorturl}</p>
+                <p><strong>clicks:</strong> {item.clicks}</p>
+              </div>
+            ))}
           </div>
         )}
       </div>

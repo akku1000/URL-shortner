@@ -1,7 +1,9 @@
 import {create } from 'zustand'
 import axios from 'axios';
+
 const useAuth = create((set) => ({
     user:null,
+    urls:null,
     newurl:null,
 
     signup:async(form)=>{
@@ -31,6 +33,14 @@ const useAuth = create((set) => ({
        } catch (error) {
          return error.message;
        }
+    },
+    getall:async()=>{
+          try {
+            const res=await axios.get("http://localhost:5000/api/url/geturl",{withCredentials:true});
+            set({urls:res.data.urls})
+          } catch (error) {
+            return error.message;
+          }
     }
 }))
 
