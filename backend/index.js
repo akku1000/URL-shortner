@@ -15,7 +15,7 @@ const app= express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // EXACT frontend URL
+    origin: "https://url-shortner-frontend-iota-three.vercel.app/3", // EXACT frontend URL
     credentials: true,
   })
 );

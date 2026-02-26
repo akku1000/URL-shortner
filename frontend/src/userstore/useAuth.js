@@ -1,6 +1,7 @@
 import {create } from 'zustand'
 import axios from 'axios';
-
+// https://url-shortner-backend-0mpj.onrender.com
+// http://localhost:5000/api/users/register
 const useAuth = create((set) => ({
     user:null,
     urls:null,
@@ -8,7 +9,7 @@ const useAuth = create((set) => ({
 
     signup:async(form)=>{
      try {
-        const res=await axios.post("http://localhost:5000/api/users/register",form);
+        const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/register",form);
         set({user:res.data.user});
         return res.data.message
      } catch (error) {
@@ -17,7 +18,7 @@ const useAuth = create((set) => ({
     },
     login:async(form)=>{
          try {
-            const res=await axios.post("http://localhost:5000/api/users/login",form);
+            const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/login",form);
             set({user:res.data.user});
             return res.data.message 
          } catch (error) {
@@ -26,7 +27,7 @@ const useAuth = create((set) => ({
     },
     shorten:async(url)=>{
        try {
-            const res=await axios.post("http://localhost:5000/api/url/shorten",{longUrl:url},{withCredentials:true});
+            const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/url/shorten",{longUrl:url},{withCredentials:true});
             console.log(res.data.shortUrl);
             set({newurl:res.data.shortUrl})
             return res.data.shortUrl
@@ -36,7 +37,7 @@ const useAuth = create((set) => ({
     },
     getall:async()=>{
           try {
-            const res=await axios.get("http://localhost:5000/api/url/geturl",{withCredentials:true});
+            const res=await axios.get("https://url-shortner-backend-0mpj.onrender.com/api/url/geturl",{withCredentials:true});
             set({urls:res.data.urls})
           } catch (error) {
             return error.message;
