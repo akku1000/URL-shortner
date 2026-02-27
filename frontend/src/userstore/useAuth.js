@@ -9,7 +9,7 @@ const useAuth = create((set) => ({
 
     signup:async(form)=>{
      try {
-        const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/register",form);
+        const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/register",form,{withCredentials:true});
         set({user:res.data.user});
         return res.data.message
      } catch (error) {
@@ -18,7 +18,7 @@ const useAuth = create((set) => ({
     },
     login:async(form)=>{
          try {
-            const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/login",form);
+            const res=await axios.post("https://url-shortner-backend-0mpj.onrender.com/api/users/login",form,{withCredentials:true});
             set({user:res.data.user});
             return res.data.message 
          } catch (error) {
