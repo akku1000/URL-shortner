@@ -22,6 +22,7 @@ const signup = async (req, res) => {
       httpOnly: true,
       secure: true, // Required for HTTPS (Render/Vercel)
       sameSite: "none", // Required for cross-domain
+      partition:"true",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     //     httpOnly:true,// prevent xss attack 
@@ -62,7 +63,8 @@ const login = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true, // Required for HTTPS (Render/Vercel)
-      sameSite: "none", // Required for cross-domain
+      sameSite: "none", // Required for cross-domain,
+      partition:"true",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
