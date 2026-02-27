@@ -20,10 +20,14 @@ const signup = async (req, res) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true, // Required for HTTPS (Render/Vercel)
-      sameSite: "none", // Required for cross-domain
+      secure:process.env.NODE_ENV==="production",
+       sameSite:"strict", // Required for cross-domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    //     httpOnly:true,// prevent xss attack 
+    //     secure:process.env.NODE_ENV==="production",
+    //     sameSite:"strict",//prevents CSRF attack request forgery attack
+    //     maxAge:15*60*1000
 
     res.status(201).json({
       message: "User created successfully",
